@@ -1,0 +1,107 @@
+
+BEGIN
+import Time
+
+Let = scores = []
+
+Display"\n\tWelcome to my Number Array Handling!\n"
+
+DEFINE quitArray()
+    Display"\n\tThanks for using my number array handling!"
+    time.sleep(1)
+    quit()
+    END
+
+DEFINE loadArray()
+    global score, scores
+    Display"\n\tEnter 'menu' to return to the menu!"
+    Let score = None
+    Let score = str(input("\tWhat number would you like to put into the array?: "))
+    IF score.lower() == "menu"
+        Display"\n\tYou have been returned back to the menu!"
+        main()
+    ELSE
+        scores.append(score)
+        main()
+    ENDIF
+
+DEFINE printArray()
+    global scores
+    Display"\n\tThe array includes: ", scores
+    Display"\n\tThe array contains: ", len(scores), "variables"
+    main()
+
+DEFINE sortArray()
+    global scores
+    Display"\n\t1 - Lowest to Highest (LTH)"
+    Display"\t2 - Highest to Lowest (HTL)"
+    Let direction = str(input("\n\tWhich way would you like the array to be aranged:"))
+    CASEWHERE direction.lower() is
+    	== "1" OR == "lth":scores.sort()
+            		   Display"\n\tThe array from lowest to highest is: ", scores
+            		   main()
+    	== "2" OR == "htl":scores.sort(reverse = True)
+        		   Display"\n\tThe array from highest to lowest is: ", scores
+        		   main()
+    	OTHERWISE:Display"I am sorry but", direction, "is not an option!"
+		  sortArray()
+    ENDCASE
+
+DEFINE sumArray()
+    global scores
+    Let scores = str(scores)
+    Let sums = sum(scores)
+    Display"\n\tThe total sum of the array is: ", sums
+    main()
+
+DEFINE maxminArray()
+    global scores
+    Display"\n\tThe stubs minimum & maximum was called..."
+    Display"\n\tThe minimum value in the array is: ", min(scores)
+    Display"\tThe maximum value in the array is: ", max(scores)
+    main()
+
+Define clearArray()
+    global scores
+    Let yes = ""
+    Let yes = str(input("\n\tAre you sure you want to clear the array?:  "))
+    IF yes.lower() == "yes"
+        Let scores = []
+        Display"/n/tThe Array has been cleared, the Array is now", scores
+        main()
+    ELSE
+        Display"\n\tThe Array was not cleared, the Array contains", scores
+        main()
+    ENDIF
+          
+DEFINE main()
+    Let choice = None
+    WHILE choice != "0"
+        TRY
+            Display
+            """        
+            0 - Quit (quit)
+            1 - Load numbers into the array (load)
+            2 - Print the array (print)
+            3 - Sort the array (sort)
+            4 - Sum the array (sum)
+            5 - Find the minimum & maximum (max) or (min)
+            6 - Clear the array (clear)
+            """
+            Let choice = str(input("What would you like to do: "))
+	    CASEWHERE choice.lower()
+                == "0" OR == "quit":quitArray()
+                == "1" OR == "load":loadArray()
+                == "2" OR == "print":printArray()
+                == "3" OR == "sort":sortArray()
+                == "4" OR == "sum":sumArray()
+                == "5" OR == "max"OR == "min":maxminArray()
+                == "6" OR == "clear":clearArray()
+	    ENDCASE
+        EXCEPT VALUEERROR
+            Display"Sorry, but", choice, "is an invalid choice."
+            main()
+	ENDTRY
+    ENDWHILE
+            
+main()
